@@ -3,7 +3,7 @@
 An on-device (no cloud) computer-vision assistant for my office desk, built on a
 [Milk-V Duo S](https://milkv.io/duo-s) (Sophgo SG2000, ARM Cortex-A53 + RISC-V C906, ~1 TOPS NPU).
 
-## Planned features
+## Features
 
 1. **Presence-aware auto-lock + break reminder** — detect when I'm away from the desk and
    lock the PC / cut monitor power; track continuous sitting time and nudge a break.
