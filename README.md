@@ -19,22 +19,6 @@ Detection runs on the SG2000's onboard NPU, so no video ever leaves the device.
 - CP2102 USB-to-TTL adapter for the debug serial console (3.3V logic)
 - Basic relays/sensors (repurposed from other projects) for the status light / lock triggers
 
-## Status
-
-- [x] Board bring-up over USB-NCM (SSH at `192.168.42.1`) and serial console (115200 8N1,
-      **requires DTR/RTS asserted** on the host side — plain terminal apps like PuTTY handle
-      this automatically, but a raw serial API may not)
-- [x] Stock SD image flashed and verified booting (`milkv-duos-glibc-arm64-sd`, v2.0.1)
-- [x] Built a patched SDK image with IMX219 (Camera Module 2) sensor driver support — see
-      [`patches/`](patches/) — since the stock SDK only ships drivers for GC2083 and OV5647
-- [x] Camera verified working: `sample_sensor_test` reports
-      `IMX219 1080P 30fps 10bit LINE Init OK!` after switching `/mnt/data/sensor_cfg.ini`
-      to point at `sensor_cfg_IMX219_J2.ini` (the stock symlink defaults to GC2083)
-- [ ] Presence-detection application (NPU-accelerated person detection)
-- [ ] Desk-lock / break-reminder integration
-- [ ] Gesture shortcuts
-- [ ] Office status light
-
 ## SDK build notes
 
 The stock `duo-buildroot-sdk-v2` doesn't support Camera Module 2 (IMX219) or Module 3
