@@ -19,6 +19,34 @@ Detection runs on the SG2000's onboard NPU, so no video ever leaves the device.
 - CP2102 USB-to-TTL adapter for the debug serial console (3.3V logic)
 - Basic relays/sensors (repurposed from other projects) for the status light / lock triggers
 
+![Hardware setup: Duo S, Camera Module 2 on a tripod, CP2102 debug adapter](docs/images/hardware_setup.jpg)
+
+## Demo
+
+The camera's view when away from the desk (no detections, `class_id: 4` / person never
+fires):
+
+![Camera view with nobody at the desk](docs/images/camera_view_away.png)
+
+Real output from [`scripts/presence_poller.ps1`](scripts/presence_poller.ps1) (running on the
+PC) across a few manual away/return cycles, showing it actually locking the workstation:
+
+```
+Starting presence poller against root@192.168.42.1 (interval: 4s). Ctrl+C to stop.
+18:06:47 state changed:  -> present
+18:07:17 state changed: present -> away
+  -> workstation locked
+18:07:22 state changed: away -> present
+18:08:14 state changed: present -> away
+  -> workstation locked
+18:08:19 state changed: away -> present
+```
+
+Each `away` here correctly took the full ~25-second absence debounce on the board before
+firing, and each `present` fired near-instantly once back in frame. (The board-side log uses
+epoch/1970 timestamps since it has no RTC and no internet access to NTP-sync from — known
+follow-up item, not a bug; the PC-side poller's timestamps above are real.)
+
 ## SDK build notes
 
 The stock `duo-buildroot-sdk-v2` doesn't support Camera Module 2 (IMX219) or Module 3
